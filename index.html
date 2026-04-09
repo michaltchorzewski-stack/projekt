@@ -1,8 +1,294 @@
-<html>
-    <head>
-        Jebaaćtuska 
-    </head>
-    <p>
-    i trzaska 
-    </p>
+Project Structure:
+index.html
+style.css
+app.js
+data.json
+
+index.html:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UE Truck Driver App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#/">Zakazy</a></li>
+                <li><a href="#/axle">Naciski na osie</a></li>
+                <li><a href="#/info">Info</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="country-selector">
+            <h2>Wybierz kraj</h2>
+            <select id="country-select">
+                <option value="Austria">Austria</option>
+                <option value="Czechy">Czechy</option>
+                <option value="Slovakia">Slovakia</option>
+                <option value="Germany">Germany</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Romania">Romania</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Greece">Greece</option>
+            </select>
+        </section>
+        <section id="ban-status">
+            <h2>Status</h2>
+            <p id="status-text">MOŻNA JECHAĆ</p>
+        </section>
+        <section id="axle-table">
+            <h2>Naciski na osie</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Oś</th>
+                        <th>Nacisk</th>
+                        <th>Masa</th>
+                    </tr>
+                </thead>
+                <tbody id="axle-table-body">
+                    <tr>
+                        <td>1</td>
+                        <td>4000kg</td>
+                        <td>5000kg</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
 </html>
+
+style.css:
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #111;
+}
+
+#country-selector {
+    text-align: center;
+}
+
+#country-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#ban-status {
+    text-align: center;
+}
+
+#axle-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#axle-table td, #axle-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#axle-table tr:nth-child(even) {
+    background-color: #ddd;
+}
+
+#axle-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#axle-table tr:hover {
+    background-color: #4CAF50;
+}
+
+app.js:
+
+const countryData = {
+    "Austria": {
+        "bans": {
+            "monday": [22, 6],
+            "tuesday": [22, 6],
+            "wednesday": [22, 6],
+            "thursday": [22, 6],
+            "friday": [22, 6],
+            "saturday": [00, 24],
+            "sunday": [00, 24]
+        },
+        "holidays": [
+            "2023-01-01",
+            "2023-04-09",
+            "2023-04-10",
+            "2023-05-01",
+            "2023-05-08",
+            "2023-06-08",
+            "2023-08-15",
+            "2023-10-26",
+            "2023-12-25",
+            "2023-12-26"
+        ]
+    },
+    "Czechy": {
+        "bans": {
+            "monday": [22, 6],
+            "tuesday": [22, 6],
+            "wednesday": [22, 6],
+            "thursday": [22, 6],
+            "friday": [22, 6],
+            "saturday": [00, 24],
+            "sunday": [00, 24]
+        },
+        "holidays": [
+            "2023-01-01",
+            "2023-04-10",
+            "2023-05-01",
+            "2023-05-08",
+            "2023-07-05",
+            "2023-07-06",
+            "2023-09-28",
+            "2023-11-01",
+            "2023-12-24",
+            "2023-12-25",
+            "2023-12-26"
+        ]
+    },
+    "Slovakia": {
+        "bans": {
+            "monday": [22, 6],
+            "tuesday": [22, 6],
+            "wednesday": [22, 6],
+            "thursday": [22, 6],
+            "friday": [22, 6],
+            "saturday": [00, 24],
+            "sunday": [00, 24]
+        },
+        "holidays": [
+            "2023-01-01",
+            "2023-01-06",
+            "2023-04-10",
+            "2023-05-01",
+            "2023-05-08",
+            "2023-06-08",
+            "2023-07-05",
+            "2023-09-01",
+            "2023-11-01",
+            "2023-12-24",
+            "2023-12-25",
+            "2023-12-26"
+        ]
+    },
+    "Germany": {
+        "bans": {
+            "monday": [22, 6],
+            "tuesday": [22, 6],
+            "wednesday": [22, 6],
+            "thursday": [22, 6],
+            "friday": [22, 6],
+            "saturday": [00, 24],
+            "sunday": [00, 24]
+        },
+        "holidays": [
+            "2023-01-01",
+            "2023-04-10",
+            "2023-05-01",
+            "2023-05-08",
+            "2023-06-08",
+            "2023-08-15",
+            "2023-10-03",
+            "2023-12-24",
+            "2023-12-25",
+            "2023-12-26"
+        ]
+    },
+    "Belgium": {
+        "bans": {
+            "monday": [22, 6],
+            "tuesday": [22, 6],
+            "wednesday": [22, 6],
+            "thursday": [22, 6],
+            "friday": [22, 6],
+            "saturday": [00, 24],
+            "sunday": [00, 24]
+        },
+        "holidays": [
+            "2023-01-01",
+            "2023-04-10",
+            "2023-05-01",
+            "2023-05-08",
+            "2023-06-08",
+            "2023-08-15",
+            "2023-11-01",
+            "2023-12-25"
+        ]
+    },
+    "Netherlands": {
+        "bans": {
+            "monday": [22, 6],
+            "tuesday": [22, 6],
+            "wednesday": [22, 6],
+            "thursday": [22, 6],
+            "friday": [22, 6],
+            "saturday": [00, 24],
+            "sunday": [00, 24]
+        },
+        "holidays": [
+            "2023-01-01",
+            "2023-04-28",
+            "2023-05-04",
+            "2023-05-05",
+            "2023-05-08",
+            "2023-06-08",
+            "2023-12-25",
+            "2023-12-26"
+        ]
+    },
+    "Romania": {
+        "bans": {
+            "monday": [22, 6],
+            "tuesday": [22, 6],
+            "wednesday": [22, 6],
+            "thursday": [22, 6],
+
